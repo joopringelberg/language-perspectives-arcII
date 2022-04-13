@@ -6,7 +6,7 @@ This is the README for the language extension "perspectives-arc" in vscode. To b
 * a theme that complements the language extension (see this repo).
 
 ## Getting it
-Download the language extension from this link: [arc.tmLanguage](./arc.tmLanguage-X.Y.Z.vsix).
+Download the language extension from this link: [arc.tmLanguage](./perspectives-arc-0.0.1.vsix).
 
 Download the theme extension from this link: XXX
 
