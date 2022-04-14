@@ -3,29 +3,41 @@
 This is the README for the language extension "perspectives-arc" in vscode. To benefit from syntax coloring in vscode while editing a perspectives model (written in the ARC language), you need to add two extensions to your vscode environment:
 
 * a language extension for the Perspectives ARC language (provided in this repo);
-* a theme that complements the language extension (see this repo).
+* a theme that complements the language extension (see the repo [theme-perspectives-arc](https://github.com/joopringelberg/theme-perspectives-arc.git); the theme extension may be downloaded there).
 
 ## Getting it
-Download the language extension from this link: [arc.tmLanguage](./perspectives-arc-0.0.1.vsix).
 
-Download the theme extension from this link: XXX
+Go to the [latest release](https://github.com/joopringelberg/language-perspectives-arcII/releases) (on Github: Code tab, section releases on the right, click `latest`). Download the file named `language-perspectives-arc-X.Y.Z.vsix`, where X, Y and Z are the components of the semantic version number.
 
 ## Installing it
-Install the language extension with:
-
-```
-code --install-extension arc.tmLanguage-X.Y.Z.vsix
-```
-
-Install the theme extension ...
+You can manually install both the theme extension and the ARC language extension (as it is packaged in a .vsix file). Use the `Install from VSIX` command in the Extensions view command dropdown, or the `Extensions: Install from VSIX command` in the Command Palette, point to the .vsix file.
 
 ## Uninstalling it
 VS Code makes it easy to manage your extensions. You can install, disable, update, and uninstall extensions through the Extensions view, the Command Palette (commands have the `Extensions:` prefix).
 
 
-
 ## Example files
-Model file examples can be found in the `arc sources` directory.
+A model file example can be found in the `arc sources` directory.
+
+## Release Notes
+
+### 0.0.1
+
+Initial release of perspectives-arc.
+
+## Requirements
+
+`js-yaml` is a local development requirement. `yo` and `vcse` are global requirements.
+
+## Extension Settings
+
+This language extension as no specific settings.
+
+## Known Issues
+
+* Make comments effective and disable other rules within comments.
+* Keywords view, aspect, use, filledBy and indexed.
+
 
 # Syntax coloring for Perspectives
 Both vscode and Atom use the TextMate approach to colorize source files. The TextMate approach is based on rules that are a combination of named regular expressions to select a part of the source text (the `scope`) and a string that identifies a particular style to format it. 
@@ -118,23 +130,12 @@ Package with this command:
 vsce package
 ```
 
-## Requirements
-
-`js-yaml` is a local development requirement. `yo` and `vcse` are global requirements.
-
-## Extension Settings
-
-This language extension as no specific settings.
-
-## Known Issues
-
-* Make comments effective and disable other rules within comments.
-* Keywords view, aspect, use, filledBy and indexed.
-
-
-## Release Notes
-
-### 1.0.0
-
-Initial release of perspectives-arc.
+## Releasing
+Follow these steps:
+* set the new version number in the package file.
+* run vsce package again to produce a new .vsix file (it will have the right version number).
+* push all changes to github.
+* create a new tag, use the semantic version number preceded by 'v', e.g. `v0.1.0`.
+* on Github: create a new release using that tag.
+* add the `language-perspectives-arc-X.Y.Z.vsix` to it.
 
