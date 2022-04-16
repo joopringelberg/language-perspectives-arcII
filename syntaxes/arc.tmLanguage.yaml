@@ -1,7 +1,8 @@
 # Copyright Joop Ringelberg 2022
 
 scopeName: source.arc
-fileTypes: .arc
+fileTypes: 
+  - arc
 name: ARC
 
 # Fragments to use:
@@ -88,40 +89,47 @@ patterns:
   - include: block_comment
 
   ## CONTEXT KINDS
-  - name: entity.name.type.contextkind.arc
+  - name: entity.name.class.contextkind.arc
     match: ^\s*\b(domain|case|party|activity)\b
 
   ## ROLE KINDS (NOT USER)
-  - name: entity.name.type.rolekind.arc
+  - name: entity.other.inherited-class.rolekind.arc
     match: ^\s*\b(external|thing|context)\b
   ### Treat 'extern', the reference to the external role, as a role.
-  - name: entity.name.type.rolekind.arc
+  - name: entity.other.inherited-class.rolekind.extern.arc
     match: \bextern\b
+  ### filledBy
+  - name: entity.other.inherited-class.rolekind.filledBy.arc
+    match: \bfilledBy\b
 
   ## USER ROLE IS SPECIAL
   - match: \b(user\s+)(\w+)\b
     captures: 
       1:
-        name: entity.name.type.rolekind.arc
+        name: entity.other.inherited-class.rolekind.arc
       2:
-        name: entity.name.type.userrole.arc
+        name: comment.userrole.arc
 
   ## PROPERTY
-  - name: entity.name.type.property.arc
+  - name: entity.name.tag.property.arc
     match: \bproperty\b
 
+  ## PROPERTY FACETS
+  - name: entity.name.tag.propertyfacet.arc
+    match: \b(mandatory|relational|unlinked|minLength|maxLength|enumeration|pattern|maxInclusive|minInclusive)\b
+
   ## PERSPECTIVE
-  - name: entity.other.perspective.arc
+  - name: keyword.other.special-method.perspective.arc
     match: \bperspective(\s+(on|of))?\b
-  - name: entity.other.perspective.arc
+  - name: keyword.other.special-method.perspective.arc
     match: \b(view(?=\s+[\w|:|\$]+\s+verbs)|verbs|props|only|except|defaults|all\s+roleverbs|action)\b
 
   ## STATE
-  - name: keyword.control.state.arc
+  - name: keyword.state.arc
     match: \bstate\b
 
-  ## ON ENTRY, ON EXIT
-  - name: keyword.control.stateTransition.arc
+  ## STATE TRANSITION (ON ENTRY, ON EXIT)
+  - name: keyword.stateTransition.arc
     match: \bon\s+(entry|exit)\b
 
   ## NOTIFICATION
@@ -129,29 +137,56 @@ patterns:
   - match: \b(notify)(\s+\w+)?\b
     captures:
       1: 
-        name: keyword.control.notification.arc
+        name: keyword.notification.arc
       2:
-        name: entity.name.type.userrole.arc
+        name: comment.userrole.arc
 
   ## AUTOMATIC ACTION
   ### User in `do for user` gets the role coloring.
   - match: \b(do)(\s+for\s+)?(\w+)?\b
     captures:
       1: 
-        name: keyword.control.automaticAction.arc
+        name: keyword.automaticAction.arc
       2: 
-        name: keyword.control.automaticAction.arc
+        name: keyword.automaticAction.arc
       3: 
-        name: entity.name.type.userrole.arc
+        name: comment.userrole.arc
+
+  ## ASSIGNMENT
+  ### remove role/context from <expr>
+  - match: \b(remove\s+)(role|context)\b
+    captures: 
+      1:
+        name: keyword.assignment.arc
+      2:
+        name: keyword.assignment.arc
+  ### create role RoleType [in <contextExpression>]
+  - match: \b(create\s+role\s+)(\w+)(\s+in\b)?
+    captures:
+      1:
+        name: keyword.assignment.arc
+      2: 
+        name: entity.other.inherited-class.rolekind.arc
+      3:
+        name: keyword.assignment.arc
+  ### delete role roleType from <context-expression>
+  - match: \b(delete\s+role\s+)(\w+)(\s+from)\b
+    captures: 
+      1:
+        name: keyword.assignment.arc
+      2: 
+        name: entity.other.inherited-class.rolekind.arc
+      3:
+        name: keyword.assignment.arc
 
   ## BOOLEAN
-  - name: constant.language.boolean.arc
+  - name: constant.boolean.arc
     match: true|false
   
   ## STRINGS ARE IN REPOSITORY
 
   ## DATE
-  - name: constant.other.date.arc
+  - name: constant.date.arc
     # match: \'([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?\''
     match: \'[\d|\-]+\'
 
@@ -160,81 +195,47 @@ patterns:
     match: \b\d+\b
   
   ## REGULAR EXPRESSION
-  - name: string.regexp.arc
+  - name: constant.regexp.arc
     match: \\.*\\
 
   ## OPERATORS
   # alphabetic operators (without `filter`).
-  - name: keyword.operator.arc
+  - name: support.function.operator.arc
     match: \b(either|both|binds|matches|and|or|not|exists|available|boundBy|binder|context)\b
   # special pattern for `with` in `filter ... with`
   - match: \b(filter)(.*)(with)\b
     captures:
       1: 
-        name: keyword.operator.arc
+        name: support.function.operator.arc
       3:
         name: keyword.operator.arc
   # non-alphabetic operators
-  - name: keyword.operator.arc
+  - name: support.function.operator.arc
     match: \>\>\=|\>\>|\*|\/|\+|\-|\=\=|\>\=|\<|>\=|>
 
+  # LETA, LETE
+
   ## STANDARD VARIABLES
-  - name: variable.language.arc
+  - name: comment.language.arc
     match: \b(currentcontext|nofifieduser|origin|currentactor)\b
 
-  ## PROPERTY FACETS
-  - name: entity.other.propertyfacet.arc
-    match: \b(mandatory|relational|minLength|maxLength|enumeration|pattern|maxInclusive|minInclusive)\b
-
   ## PROPERTY RANGE
-  - name: entity.other.propertyrange.arc
+  - name: constant.propertyrange.arc
     match: \b(String|Number|Boolean|DateTime)\b
     
   ## ROLEVERBS
-  - name: entity.other.roleverb.arc
+  - name: entity.name.label.roleverb.arc
     match: \b(Remove|Delete|Create|CreateAndFill|Fill|Unbind|RemoveFiller|Move)\b
 
 
   ## PROPERTYVERBS
-  - name: entity.other.propertyverb.arc
+  - name: entity.name.label.propertyverb.arc
     match: \b(RemovePropertyValue|DeleteProperty|AddPropertyValue|SetPropertyValue|Consult)\b
-
-  ## ASSIGNMENT
-  ### remove role/context from <expr>
-  - match: \b(remove\s+)(role|context)\b
-    captures: 
-      1:
-        name: keyword.control.other.assignment.arc
-      2:
-        name: keyword.control.other.assignment.arc
-  ### create role RoleType [in <contextExpression>]
-  - match: \b(create\s+role\s+)(\w+)(\s+in\b)?
-    captures:
-      1:
-        name: keyword.control.other.assignment.arc
-      2: 
-        name: entity.name.type.rolekind.arc
-      3:
-        name: keyword.control.other.assignment.arc
-  ### delete role roleType from <context-expression>
-  - match: \b(delete\s+role\s+)(\w+)(\s+from)\b
-    captures: 
-      1:
-        name: keyword.control.other.assignment.arc
-      2: 
-        name: entity.name.type.rolekind.arc
-      3:
-        name: keyword.control.other.assignment.arc
 
   # VIEW
 
-  # ASPECT
+  ## META: ASPECT, USE, INDEXED
+  - name: keyword.operator
+    match: \b(aspect|use|indexed)\b
 
-  # USE
-
-  # FILLEDBY
-
-  # INDEXED
-
-  # LETA, LETE
   
