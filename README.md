@@ -33,6 +33,9 @@ Modifications to readme and various house holding issues in the package file.
 ### 0.0.4
 The tokenization is now aimed towards support of the base16 color schemes, to provide a broad range of themes.
 
+### 1.0.0
+This version tokenizes everything we think is useful (including comments, now).
+
 Initial release of perspectives-arc.
 
 ## Requirements
@@ -45,9 +48,7 @@ This language extension as no specific settings.
 
 ## Known Issues
 
-* Make comments effective and disable other rules within comments.
-* Keywords view, aspect, use, filledBy and indexed.
-
+There are currently no known issues.
 
 # Syntax coloring for Perspectives
 Both vscode and Atom use the TextMate approach to colorize source files. The TextMate approach is based on rules that are a combination of named regular expressions to select a part of the source text (the `scope`) and a string that identifies a particular style to format it. 
@@ -56,61 +57,7 @@ Both vscode and Atom use the TextMate approach to colorize source files. The Tex
 
 TextMate has an elaborate convention of scope names. The objective is that if the various themes adhere to these scope names, a theme can style source files in a broad range of languages. 
 
-I've tried to adhere to the TextMate conventions, but Perspectives differs quite a lot from general programming languages. What follows is a discussion of how I've mapped Perspectives concepts to TextMate conventions.
-
-### Meta root group
-TextMate distinguishes a number of 'root groups': broad categories for defining scopes. The `meta` group is one of them. It is used to define larger parts of the source text. These scopes are not used for formatting, but to contextualize behaviour, for example to expand an expression when the tab key is pressed. Currently, we don't have such behaviours in the IDE support for Perspectives. However, the following Perspectives constructs would fall in the meta root group, as they define lexical constructs with an indented body:
-
-* all contexts;
-* all roles;
-* state
-* screen
-* view
-* state transitions (on entry, on exit)
-* automatic actions (do)
-* actions
-* notifications
-* in state expressions.
-
-As we don't yet have use for meta group rules, they have not been defined yet.
-
-### Types
-Contexts (domain, case, party, activity) are Perspectives types. So are all role types (context, user, external, thing) and properties. All these types map to the `entity` root group. We don't have rules for an entire entity scope, as this is not how TextMate is meant to be used (`meta` covers such areas). However, we use `entity.name`, `entity.other` etc.
-
-### State related keywords
-There is no explicit flow of control in Perspectives. However, using automatic actions in state transitions comes close. For that reason we map all keywords that have to do with state and automatic actions onto `keyword.control`.
-
-### Treatment of User roles and their Perspectives
-As Perspectives are arguably very important, we give all parts of Perspectives the same color as the `perspective` keyword itself. For the same reason we let user role identifiers stand out with a different color. This does not just hold for the definition of a user role, but for references to these identifiers, too.
-
-### Simple values
-We treat simple values such as Booleans, DateTimes, Strings and Numbers as constants, by collecting them in the constant root group.
-
-### Operators
-Both alphanumeric operators (such as binds, filter, binder) as non-alphanumeric operators (such as >> and <=) are given the same color. This causes queries (e.g. in calculated roles and expressions) to stand out in the text.
-
-### Standard Variables
-We have four standard variables in Perspectives. These are mapped to `variable.language`.
-
-### User-defined variables
-Regrettably we have no way (yet) of coloring variables defined in a let or let* expression.
-
-### Property facets
-Properties and roles can be defined with two standard facets: `mandatory` and `relational` (the default value for these facets are optional and functional - there are no keywords for those values).
-
-Properties can be further defined with so-called 'constraining facets':
-
-* minLength
-* maxLength
-* enumeration
-* pattern
-* maxInclusive
-* minInclusive
-
-All these keywords are colored in the same way.
-
-### Assignment statements: side effects
-State changing statements should stand out. Assignment as such is not recognized in the TextMate conventions. We lump them under keyword.control.other with the suffix .assignment.arc and color them red. 
+I've tried to adhere to the TextMate conventions, but Perspectives differs quite a lot from general programming languages. In the end, I decided that a semantical mapping yields too little result to be of value. Instead, we rely on a different system for assigning colors, as explained below.
 
 # Base16
 [Base16](http://chriskempson.com/projects/base16/) is a system of 16 hexadecimal numbers mapped to colors. Designers can choose different colors to create a new palette. Each number is mapped onto a number of syntactical constructs familiar from programming languages. For example: 

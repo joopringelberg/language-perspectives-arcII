@@ -16,6 +16,7 @@ domain SimpleChat
     on exit
       do for Chatter
         delete context bound to Chats
+        SomeProp = "This is a string"
     external
       aspect sys:RootContext$External
     context Chats (relational, unlinked) filledBy Chat
@@ -29,7 +30,7 @@ domain SimpleChat
         props (Title) verbs (Consult)
         action RemoveThisChat
           remove context origin
-          create role Chats in extern >> context
+          create role Chats in extern >> context 
 
   case Chat
     aspect sys:Invitation

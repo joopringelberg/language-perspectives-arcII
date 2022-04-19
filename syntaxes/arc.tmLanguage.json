@@ -5,111 +5,78 @@
   ],
   "name": "ARC",
   "repository": {
-    "strings": {
+    "string": {
       "name": "string.quoted.double.arc",
-      "begin": "\\\"",
-      "end": "\\\"",
-      "patterns": {
-        "name": "constant.character.escape.arc",
-        "match": "\\."
+      "match": "(\\\")(.*)(\\\")",
+      "captures": {
+        "1": {
+          "name": "string.begin.arc"
+        },
+        "2": {
+          "name": "string"
+        },
+        "3": {
+          "name": "string.end.arc"
+        }
       }
     },
-    "comments": {
-      "patterns": [
-        {
-          "name": "comment.line.double-dash",
-          "begin": "(^[ \\t]+)?(?=--+\\s+\\|)",
-          "end": "(?!\\G)",
-          "beginCaptures": {
-            "1": {
-              "name": "punctuation.whitespace.comment.leading"
-            }
-          },
-          "patterns": {
-            "name": "comment.line.double-dash.documentation",
-            "begin": "(--+)\\s+(\\|)",
-            "end": "\\n",
-            "beginCaptures": {
-              "1": {
-                "name": "punctuation.definition.comment"
-              },
-              "2": {
-                "name": "punctuation.definition.comment.documentation"
-              }
-            }
-          }
-        },
-        {
-          "begin": "(^[ \\t]+)?(?=--+)",
-          "end": "(?!\\G)",
-          "beginCaptures": {
-            "1": {
-              "name": "punctuation.whitespace.comment.leading"
-            }
-          },
-          "patterns": {
-            "name": "comment.line.double-dash",
-            "begin": "--",
-            "end": "\\n",
-            "beginCaptures": {
-              "0": {
-                "name": "punctuation.definition.comment"
-              }
-            }
-          }
-        },
-        {
-          "include": "#block_comment"
+    "simpleComment": {
+      "begin": "(^[ \\t]+)?(?=--+)",
+      "end": "(--+)(.*)\\n",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.whitespace.comment.leading.arc"
         }
-      ]
+      },
+      "endCaptures": {
+        "1": {
+          "name": "comment.line.double-dash.arc"
+        },
+        "2": {
+          "name": "punctuation.definition.comment.arc"
+        }
+      }
     },
-    "block_comment": {
-      "patterns": [
-        {
-          "name": "comment.block.documentation",
-          "begin": "\\{-\\s*\\|",
-          "end": "-\\}",
-          "applyEndPatternLast": 1,
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment.documentation"
-            }
-          },
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment.documentation"
-            }
-          },
-          "patterns": {
-            "include": "#block_comment"
-          }
-        },
-        {
-          "name": "comment.block",
-          "begin": "\\{-",
-          "end": "-\\}",
-          "applyEndPatternLast": 1,
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment"
-            }
-          },
-          "patterns": {
-            "include": "#block_comment"
-          }
+    "documentationComment": {
+      "begin": "(^[ \\t]+)?(?=--+\\s+\\|)",
+      "end": "(--+\\s+\\|)(.*)\\n",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.whitespace.comment.leading.arc"
         }
-      ]
+      },
+      "endCaptures": {
+        "1": {
+          "name": "comment.line.double-dash.documentation.arc"
+        },
+        "2": {
+          "name": "punctuation.definition.comment.documentation.arc"
+        }
+      }
+    },
+    "blockComment": {
+      "begin": "\\{-",
+      "end": "-\\}",
+      "applyEndPatternLast": 1,
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.arc"
+        }
+      }
     }
   },
   "patterns": [
     {
-      "include": "strings"
+      "include": "#string"
     },
     {
-      "include": "comments"
+      "include": "#documentationComment"
     },
     {
-      "include": "block_comment"
+      "include": "#simpleComment"
+    },
+    {
+      "include": "#blockComment"
     },
     {
       "name": "entity.name.class.contextkind.arc",
@@ -259,7 +226,7 @@
     },
     {
       "name": "support.function.operator.arc",
-      "match": "\\>\\>\\=|\\>\\>|\\*|\\/|\\+|\\-|\\=\\=|\\>\\=|\\<|>\\=|>"
+      "match": "\\b(\\>\\>\\=|\\>\\>|\\*|\\/|\\+|\\-|\\=\\=|\\>\\=|\\<|>\\=|>)\\b"
     },
     {
       "name": "comment.language.arc",
@@ -279,7 +246,18 @@
     },
     {
       "name": "keyword.operator",
-      "match": "\\b(aspect|use|indexed)\\b"
+      "match": "\\b(aspect|indexed)\\b"
+    },
+    {
+      "match": "\\b(use)\\b(.*)\\b(for)\\b",
+      "captures": {
+        "1": {
+          "name": "keyword.operator"
+        },
+        "3": {
+          "name": "keyword.operator"
+        }
+      }
     }
   ]
 }
