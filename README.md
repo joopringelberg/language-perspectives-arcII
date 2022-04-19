@@ -3,7 +3,7 @@
 This is the README for the language extension "perspectives-arc" in vscode. To benefit from syntax coloring in vscode while editing a perspectives model (written in the ARC language), you need to add two extensions to your vscode environment:
 
 * a language extension for the Perspectives ARC language (provided in this repo);
-* a theme that complements the language extension (see the repo [theme-perspectives-arc](https://github.com/joopringelberg/theme-perspectives-arc.git); the theme extension may be downloaded there).
+* a theme that complements the language extension. Base16 compatible themes may be used.
 
 ## Getting it
 
