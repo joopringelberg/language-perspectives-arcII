@@ -48,7 +48,7 @@ This language extension as no specific settings.
 
 ## Known Issues
 
-There are currently no known issues.
+Tokenizing of the assignment operators is not yet complete: only `remove`, `create` and `delete` are handled well. 
 
 # Syntax coloring for Perspectives
 Both vscode and Atom use the TextMate approach to colorize source files. The TextMate approach is based on rules that are a combination of named regular expressions to select a part of the source text (the `scope`) and a string that identifies a particular style to format it. 
@@ -150,7 +150,6 @@ The table below gives a grouping of ARC keywords. The TOKENIZER RULE defines sem
 |---|---|---|---|
 |Contexts|Context kinds|domain, case, party, activity|base0A|
 |Roles|Role kinds|external, thing, context|base0B|
-|||extern ||
 |||View||
 |||filledBy||
 |User role|User role|user|base03|
@@ -168,7 +167,7 @@ The table below gives a grouping of ARC keywords. The TOKENIZER RULE defines sem
 ||number|||
 ||regular expression|||
 ||Property Range|String, Boolean, DateTime, Number||
-|Expressions|Operators|either, both, binds, matches, and, or, not, exists, available, boundBy, binder, context|base0C|
+|Expressions|Operators|either, both, binds, matches, and, or, not, exists, available, boundBy, binder, context, extern|base0C|
 |||filter…with||
 |||>>=, >>, *, /, +, -, ==, >=, <, >=, >||
 ||Let|letA, letE||

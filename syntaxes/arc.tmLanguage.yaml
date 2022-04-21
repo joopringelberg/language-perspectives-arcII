@@ -67,9 +67,6 @@ patterns:
   ## ROLE KINDS (NOT USER)
   - name: entity.other.inherited-class.rolekind.arc
     match: ^\s*\b(external|thing|context)\b
-  ### Treat 'extern', the reference to the external role, as a role.
-  - name: entity.other.inherited-class.rolekind.extern.arc
-    match: \bextern\b
   ### filledBy
   - name: entity.other.inherited-class.rolekind.filledBy.arc
     match: \bfilledBy\b
@@ -173,7 +170,7 @@ patterns:
   ## OPERATORS
   # alphabetic operators (without `filter`).
   - name: support.function.operator.arc
-    match: \b(either|both|binds|matches|and|or|not|exists|available|boundBy|binder|context)\b
+    match: \b(either|both|binds|matches|and|or|not|exists|available|boundBy|binder|context|extern)\b
   # special pattern for `with` in `filter ... with`
   - match: \b(filter)(.*)(with)\b
     captures:
@@ -183,7 +180,7 @@ patterns:
         name: keyword.operator.arc
   # non-alphabetic operators
   - name: support.function.operator.arc
-    match: \b(\>\>\=|\>\>|\*|\/|\+|\-|\=\=|\>\=|\<|>\=|>)\b
+    match: (\>\>\=|\>\>|\*|\/|\+|\-|\=\=|\>\=|\<|>\=|>)
 
   # LETA, LETE
 
@@ -203,8 +200,6 @@ patterns:
   ## PROPERTYVERBS
   - name: entity.name.label.propertyverb.arc
     match: \b(RemovePropertyValue|DeleteProperty|AddPropertyValue|SetPropertyValue|Consult)\b
-
-  # VIEW
 
   ## META: ASPECT, USE, INDEXED
   - name: keyword.operator
