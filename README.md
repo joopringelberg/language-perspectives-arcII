@@ -38,6 +38,12 @@ This version tokenizes everything we think is useful (including comments, now).
 
 Initial release of perspectives-arc.
 
+### 1.1.0
+Extension for timing facets of automatic actions and notifications:
+
+* The keywords after, until, every, maximally and times get the same color as the other keywords in automatic actions.
+* The time constants Milliseconds, Seconds, Minutes, Hours and Days get the same color as simple values.
+
 ## Requirements
 
 `js-yaml` is a local development requirement. `yo` and `vcse` are global requirements.
@@ -162,11 +168,13 @@ The table below gives a grouping of ARC keywords. The TOKENIZER RULE defines sem
 ||Automatic action|do [for <user>]||
 ||Assignment|remove, delete, create, etc.||
 |||action||
+||Timing|after, until, every, maximally, times||
 |Simple values|Boolean|true, false|base09|
 ||date|||
 ||number|||
 ||regular expression|||
 ||Property Range|String, Boolean, DateTime, Number||
+||Time constants|Milliseconds, Seconds, Minutes, Hours, Days||
 |Expressions|Operators|either, both, binds, matches, and, or, not, exists, available, boundBy, binder, context, extern|base0C|
 |||filter…with||
 |||>>=, >>, *, /, +, -, ==, >=, <, >=, >||
