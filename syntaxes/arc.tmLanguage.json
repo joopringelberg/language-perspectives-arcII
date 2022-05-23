@@ -190,6 +190,10 @@
       }
     },
     {
+      "name": "keyword.timing.arc",
+      "match": "\\b(after|until|every|maximally|times)\\b"
+    },
+    {
       "name": "constant.boolean.arc",
       "match": "true|false"
     },
@@ -204,6 +208,10 @@
     {
       "name": "constant.regexp.arc",
       "match": "\\\\.*\\\\"
+    },
+    {
+      "name": "constant.time.arc",
+      "match": "\\b(Milliseconds|Seconds|Minutes|Days|Hours)\\b"
     },
     {
       "name": "support.function.operator.arc",

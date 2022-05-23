@@ -49,6 +49,13 @@ domain SimpleChat
     external
       aspect sys:Invitation$External
       property Title (String)
+    
+    state StartReading = StartReading
+      on entry
+        do for Manager after 10 Seconds until 20 Seconds every 5 Seconds maximally 4 times
+          NrOfTicks = NrOfTicks + 1
+          Size = callExternal sensor:ReadSensor ( Name, "size" ) returns Number
+
 
     user Initiator (mandatory) filledBy sys:PerspectivesSystem$User
       aspect sys:Invitation$Inviter

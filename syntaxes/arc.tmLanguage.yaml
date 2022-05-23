@@ -148,6 +148,10 @@ patterns:
       3:
         name: keyword.assignment.arc
 
+  ## TIMING
+  - name: keyword.timing.arc
+    match: \b(after|until|every|maximally|times)\b
+
   ## BOOLEAN
   - name: constant.boolean.arc
     match: true|false
@@ -166,6 +170,10 @@ patterns:
   ## REGULAR EXPRESSION
   - name: constant.regexp.arc
     match: \\.*\\
+  
+  ## TIME CONSTANTS
+  - name: constant.time.arc
+    match: \b(Milliseconds|Seconds|Minutes|Days|Hours)\b
 
   ## OPERATORS
   # alphabetic operators (without `filter`).
